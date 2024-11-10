@@ -1,22 +1,17 @@
 const express = require('express');
 require('dotenv').config();
 
+const Product = require('./models/product');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use(express.static('dist'))
 
 //implement the CORS config
-
-//products array
-let products = [
-    { id: 1, name: 'Product 1', description: 'description 1', price: 100, imageUrl: '' },
-    { id: 2, name: 'Product 2', description: 'description 2', price: 200, imageUrl: '' },
-    { id: 3, name: 'Product 3', description: 'description 3', price: 300, imageUrl: '' },
-    { id: 4, name: 'Product 4', description: 'description 4', price: 150, imageUrl: '' },
-    { id: 5, name: 'Product 5', description: 'description 5', price: 500, imageUrl: '' },
-    { id: 6, name: 'Product 6', description: 'description 6', price: 50, imageUrl: '' },
-];
+const cors = require('cors');
+app.use(cors());
 
 //function to generate a url for getting a random image from picsum
 const fetchImageUrl = () => {
@@ -25,12 +20,37 @@ const fetchImageUrl = () => {
 
 //implement the get api for getting products
 app.get('/api/products', (req, res) => {
+    Product.find({}).then((products) => {
+        res.json(products);
+    });
+});
+
+app.post('/api/products', (req, res) => {
+    const body = req.body;
+    console.log(body)
+
+
+    if (!body.name || !body.description || !body.price) {
+        return res.status(400).json({ error: 'title, description and price are required' });
+    }
+
+    const product = new Product({
+        name: body.title,
+        description: body.description,
+        price: body.price,
+        imageUrl: fetchImageUrl()
+    });
+
+    product.save().then((savedProduct) => {
+        res.json(savedProduct);
+    });
+
 
 });
 
 //implement the delete api for deleting a product by Id
 app.delete('/api/products/:id', (req, res) => {
-    
+
 });
 
 app.listen(PORT, () => {
