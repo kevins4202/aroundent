@@ -34,11 +34,13 @@ app.post('/api/products', (req, res) => {
         return res.status(400).json({ error: 'title, description and price are required' });
     }
 
+    const url = fetchImageUrl();
+
     const product = new Product({
-        name: body.title,
+        name: body.name,
         description: body.description,
         price: body.price,
-        imageUrl: fetchImageUrl()
+        imageUrl: url
     });
 
     product.save().then((savedProduct) => {
@@ -50,7 +52,10 @@ app.post('/api/products', (req, res) => {
 
 //implement the delete api for deleting a product by Id
 app.delete('/api/products/:id', (req, res) => {
-
+    const id = req.params.id;
+    Product.findByIdAndDelete(id).then(() => {
+        res.status(204).end();
+    });
 });
 
 app.listen(PORT, () => {

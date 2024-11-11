@@ -1,30 +1,32 @@
 import React from 'react';
 import productService from '../services/productService';
 import { useState, useEffect } from 'react';
-import myCard from './myCard';
+import MyCard from './myCard';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
-  //implement the get products function
-  const fetchProducts = () => {
-    const products = productService.getAll();
-    setProducts(products);
-  };
+  useEffect(() => {
+    productService.getAll().then((initialProducts) => {
+      setProducts(initialProducts);
+      console.log(initialProducts);
+    });
+  }, []);
 
   //implement the delete function
   const handleDelete = (id) => {
+    productService.remove(id).then(() => {
+      setProducts(products.filter((product) => product.id !== id));
+    });
   };
 
-  return <>
-  <ul>
+  return <div className='product-list'>
     {products.map((product) => (
-      <li key={product.id}>
-        <Card title = {product.title} description={product.description} price={product.price} imageUrl = {product.imageUrl} />
-      </li>
+      <div key={product.id}>
+        <MyCard name = {product.name} description={product.description} price={product.price} imageUrl = {product.imageUrl} handleDelete={handleDelete}/>
+      </div>
     ))}
-  </ul>
-  </>
+  </div>
 };
 
 export default ProductList;

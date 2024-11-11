@@ -1,17 +1,17 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
-const myCard = ({ title, description, image, price }) => {
+const MyCard = ({ name, description, imageUrl, price }) => {
   return <>
-    <Card>
+    <Card className='my-card'>
       <CardContent>
-        <img src={image} alt={title} />
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <p>{price}</p>
+        <img src={imageUrl} alt={name} />
+        <h2 style={{textAlign:"left"}}>{name}</h2>
+        <p style={{textAlign:"left"}}>${price}</p>
+        <p style={{textAlign:"left"}}>{description}</p>
       </CardContent>
     </Card>
   </>
 }
 
-export default myCard;
+export default MyCard;
