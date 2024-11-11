@@ -15,8 +15,9 @@ app.use(cors());
 
 //function to generate a url for getting a random image from picsum
 const fetchImageUrl = () => {
-    return `https://picsum.photos/200/200?random=${Math.floor(Math.random() * 1000)}`;
+    return `https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/200`;
 };
+
 
 //implement the get api for getting products
 app.get('/api/products', (req, res) => {
