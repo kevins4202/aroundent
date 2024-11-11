@@ -21,6 +21,10 @@ code {
   margin: auto;
 }
 
+.delete{
+  cursor: pointer;
+}
+
 .my-card {
   width: 232px;
 }
