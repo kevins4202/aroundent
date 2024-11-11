@@ -2,7 +2,7 @@
 Run
 `git clone https://github.com/kevins4202/aroundent.git`\
 Access the repository through
-`cd aroundent`\
+`cd aroundent/StarterCode/backend`\
 Start the application (frontend + backend) using 
 `cd backend && npm run start`\
 The link to the application is 
