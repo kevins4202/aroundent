@@ -3,9 +3,11 @@ Run
 `git clone https://github.com/kevins4202/aroundent.git`\
 Access the repository through
 `cd aroundent`\
+Install the packages using
+`cd StarterCode/backend && npm run init`\
 Start the application (frontend + backend) using 
-`cd StarterCode/backend && npm run start`\
+`npm run start`\
 The link to the application is 
-`localhost://3001`\
+`localhost://8000`\
 The link to the backend is
-`localhost://3001/api/products`
+`localhost://8000/api/products`
